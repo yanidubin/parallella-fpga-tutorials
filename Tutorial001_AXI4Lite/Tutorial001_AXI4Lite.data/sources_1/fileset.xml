@@ -2,9 +2,8 @@
 <DARoots Version="1" Minor="26">
   <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
-    <File Path="$PPRDIR/../../parallella-hw/fpga/projects/parallella_7020_headless/version.v">
+    <File Path="$PSRCDIR/sources_1/version.v">
       <FileInfo SFType="VHeader">
-        <Attr Name="IsGlobalInclude" Val="1"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>
       </FileInfo>
@@ -198,7 +197,7 @@
         <Attr Name="UsedInSimulation" Val="1"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../../parallella-hw/fpga/edk/parallella_7020_headless/system.xmp">
+    <File Path="$PSRCDIR/sources_1/system/system.xmp">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
