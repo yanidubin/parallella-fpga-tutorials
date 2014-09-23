@@ -173,6 +173,9 @@ BEGIN processing_system7
  PARAMETER C_FCLK_CLK3_FREQ = 40000000
  PARAMETER C_USE_M_AXI_GP1 = 1
  PARAMETER C_USE_S_AXI_HP1 = 1
+ PARAMETER C_USE_M_AXI_GP0 = 1
+ PARAMETER C_USE_CR_FABRIC = 1
+ BUS_INTERFACE M_AXI_GP0 = axi_interconnect_1
  PORT MIO = processing_system7_0_MIO
  PORT PS_SRSTB = processing_system7_0_PS_SRSTB
  PORT PS_CLK = processing_system7_0_PS_CLK
@@ -281,5 +284,24 @@ BEGIN processing_system7
  PORT GPIO_I = processing_system7_0_GPIO_I_0
  PORT GPIO_O = processing_system7_0_GPIO_O
  PORT GPIO_T = processing_system7_0_GPIO_T
+ PORT FCLK_RESET0_N = processing_system7_0_FCLK_RESET0_N
+ PORT M_AXI_GP0_ACLK = processing_system7_0_FCLK_CLK0
+END
+
+BEGIN axi4lite_example
+ PARAMETER INSTANCE = axi4lite_example_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_BASEADDR = 0x60000000
+ PARAMETER C_HIGHADDR = 0x60000FFF
+ BUS_INTERFACE S_AXI = axi_interconnect_1
+ PORT S_AXI_ACLK = processing_system7_0_FCLK_CLK0
+END
+
+BEGIN axi_interconnect
+ PARAMETER INSTANCE = axi_interconnect_1
+ PARAMETER HW_VER = 1.06.a
+ PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 0
+ PORT INTERCONNECT_ACLK = processing_system7_0_FCLK_CLK0
+ PORT INTERCONNECT_ARESETN = processing_system7_0_FCLK_RESET0_N
 END
 
