@@ -33,9 +33,11 @@
 
 // Set # of GPIO pin-pairs based on target FPGA
 `ifdef TARGET_7Z020
-  `define GPIO_NUM 24
+  `define GPIO_NUM 22 // was 24, but stealing 2x for UART0, and algorithm below breaks on odd number of GPIO pairs
+  `define SIG_MAX 46 // was 48, but stealing 2x for UART0
 `elsif TARGET_7Z010
   `define  GPIO_NUM 12
+  `define SIG_MAX 48
 `endif  // else throw an error!
 
 // Number of GPIO signals
@@ -44,6 +46,8 @@
 `else
  `define GPIO_SIGS (2 * `GPIO_NUM)
 `endif
+
+
 
 module parallella_gpio_emio
   (/*AUTOARG*/
@@ -58,9 +62,9 @@ module parallella_gpio_emio
    inout [`GPIO_NUM-1:0] GPIO_P;
    inout [`GPIO_NUM-1:0] GPIO_N;
 
-   output [47:0]  processing_system7_0_GPIO_I_pin;
-   input  [47:0]  processing_system7_0_GPIO_O_pin;
-   input  [47:0]  processing_system7_0_GPIO_T_pin;
+   output [45:0]  processing_system7_0_GPIO_I_pin;
+   input  [45:0]  processing_system7_0_GPIO_O_pin;
+   input  [45:0]  processing_system7_0_GPIO_T_pin;
 
    wire [`GPIO_SIGS-1:0] gpio_i;
    assign processing_system7_0_GPIO_I_pin[`GPIO_SIGS-1:0] = gpio_i;
@@ -150,11 +154,11 @@ module parallella_gpio_emio
 
    // Tie unused PS signals back to themselves
    genvar    n;
-   generate for(n=`GPIO_SIGS; n<48; n=n+1) begin : unused_ps_sigs
+   generate for(n=`GPIO_SIGS; n<`SIG_MAX; n=n+1) begin : unused_ps_sigs
       assign processing_system7_0_GPIO_I_pin[n]
                = processing_system7_0_GPIO_O_pin[n] &
                  ~processing_system7_0_GPIO_T_pin[n];
    end
    endgenerate
-   
+ 
 endmodule // parallella_gpio_emio

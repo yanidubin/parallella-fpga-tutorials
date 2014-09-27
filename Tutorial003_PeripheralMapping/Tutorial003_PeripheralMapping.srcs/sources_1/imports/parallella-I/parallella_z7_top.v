@@ -25,7 +25,7 @@
 
 // Set # of GPIO pins based on target FPGA
 `ifdef TARGET_7Z020
-  `define GPIO_NUM 24
+  `define GPIO_NUM 22 // was 24, but stealing 2x for UART0
 `elsif TARGET_7Z010
   `define  GPIO_NUM 12
 `endif  // else throw an error!
@@ -54,7 +54,9 @@ module parallella_z7_top (/*AUTO ARG*/
    DSP_FLAG,TURBO_MODE, PROG_IO,
    //HDMI
    HDMI_D, HDMI_CLK, HDMI_HSYNC, HDMI_VSYNC, HDMI_DE, HDMI_SPDIF,
-   HDMI_INT,PS_I2C_SCL,PS_I2C_SDA
+   HDMI_INT,PS_I2C_SCL,PS_I2C_SDA,
+   // PS Peripherals
+   PS_UART0_TX, PS_UART0_RX
    );
 
    parameter SIDW = 12; //ID Width
@@ -98,6 +100,12 @@ module parallella_z7_top (/*AUTO ARG*/
    output 	HDMI_DE;
    output 	HDMI_SPDIF;
    input 	HDMI_INT;
+   
+   //######################
+   //# PS peripherals
+   //######################
+   output PS_UART0_TX;
+   input  PS_UART0_RX;
 
    input 	TURBO_MODE;
    input 	PROG_IO;
@@ -230,13 +238,13 @@ module parallella_z7_top (/*AUTO ARG*/
    wire			reset_fpga;		// From parallella of parallella.v
    // End of automatics
 
-   wire [47:0]  processing_system7_0_GPIO_I_pin;
-   wire [47:0]  processing_system7_0_GPIO_O_pin;
-   wire [47:0]  processing_system7_0_GPIO_T_pin;
+   wire [43:0]  processing_system7_0_GPIO_I_pin;
+   wire [43:0]  processing_system7_0_GPIO_O_pin;
+   wire [43:0]  processing_system7_0_GPIO_T_pin;
 
 `ifndef FEATURE_GPIO_EMIO  // Tie-off GPIO signals if not connected to PS7
-   assign processing_system7_0_GPIO_O_pin = 47'd0;
-   assign processing_system7_0_GPIO_T_pin = 47'hFFFF_FFFF_FFFF;
+   assign processing_system7_0_GPIO_O_pin = 43'd0;
+   assign processing_system7_0_GPIO_T_pin = 43'h0FFF_FFFF_FFFF;
 `endif
 
    //###########
@@ -296,7 +304,7 @@ module parallella_z7_top (/*AUTO ARG*/
       .processing_system7_0_GPIO_O_pin(processing_system7_0_GPIO_O_pin),
       .processing_system7_0_GPIO_T_pin(processing_system7_0_GPIO_T_pin)
       );
-   
+         
    //##############################
    //# HDMI Interface
    //##############################
@@ -539,6 +547,11 @@ module parallella_z7_top (/*AUTO ARG*/
 			   .processing_system7_0_S_AXI_HP1_ACLK_pin(processing_system7_0_FCLK_CLK3_pin),
 			   .processing_system7_0_I2C0_SCL_pin(PS_I2C_SCL),
 			   .processing_system7_0_I2C0_SDA_pin(PS_I2C_SDA),
+			   
+// @YLD:TODO - Make peripherals selectable via macros
+         .processing_system7_0_UART0_TX_pin(PS_UART0_TX),
+         .processing_system7_0_UART0_RX_pin(PS_UART0_RX),
+			   
 `ifdef FEATURE_HDMI
 			   .hdmi_clk(hdmi_clk),
                .hdmi_data(hdmi_data),

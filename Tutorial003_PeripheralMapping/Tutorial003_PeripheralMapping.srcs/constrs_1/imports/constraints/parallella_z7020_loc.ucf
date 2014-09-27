@@ -30,8 +30,14 @@ NET "GPIO_P[20]" LOC = "Y7" ;
 NET "GPIO_N[20]" LOC = "Y6" ;
 NET "GPIO_P[21]" LOC = "U7" ;
 NET "GPIO_N[21]" LOC = "V7" ;
-NET "GPIO_P[22]" LOC = "V6" ;
-NET "GPIO_N[22]" LOC = "W6" ;
-NET "GPIO_P[23]" LOC = "T5" ;
-NET "GPIO_N[23]" LOC = "U5" ;
++#NET "GPIO_P[22]" LOC = "V6" ;
++#NET "GPIO_N[22]" LOC = "W6" ;
++#NET "GPIO_P[23]" LOC = "T5" ;
++#NET "GPIO_N[23]" LOC = "U5" ;
+
++#####################
++# UART0
++#####################
++NET PS_UART0_TX     LOC = T5  | DRIVE = 8 | SLEW = SLOW  | IOSTANDARD = LVCMOS25; ##/*| PULLUP = "TRUE"*/
++NET PS_UART0_RX     LOC = U5  | DRIVE = 8 | SLEW = SLOW  | IOSTANDARD = LVCMOS25; ##/*| PULLUP = "TRUE"*/
 
