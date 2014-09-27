@@ -215,15 +215,19 @@
         <Attr Name="UsedInSimulation" Val="1"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../../parallella-hw/fpga/hdl/parallella-I/parallella_z7_top.v">
+    <File Path="$PSRCDIR/sources_1/imports/parallella-I/parallella_z7_top.v">
       <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../parallella-hw/fpga/hdl/parallella-I/parallella_z7_top.v"/>
+        <Attr Name="ImportTime" Val="1411817169"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../../parallella-hw/fpga/hdl/gpio/parallella_gpio_emio.v">
+    <File Path="$PSRCDIR/sources_1/imports/gpio/parallella_gpio_emio.v">
       <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../parallella-hw/fpga/hdl/gpio/parallella_gpio_emio.v"/>
+        <Attr Name="ImportTime" Val="1411817181"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>

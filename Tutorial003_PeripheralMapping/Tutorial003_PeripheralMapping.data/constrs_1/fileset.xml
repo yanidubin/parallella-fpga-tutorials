@@ -8,8 +8,10 @@
         <Attr Name="UsedInImplementation" Val="1"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../../parallella-hw/boards/parallella-I/constraints/parallella_z7020_loc.ucf">
+    <File Path="$PSRCDIR/constrs_1/imports/constraints/parallella_z7020_loc.ucf">
       <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../parallella-hw/boards/parallella-I/constraints/parallella_z7020_loc.ucf"/>
+        <Attr Name="ImportTime" Val="1411817196"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
       </FileInfo>
