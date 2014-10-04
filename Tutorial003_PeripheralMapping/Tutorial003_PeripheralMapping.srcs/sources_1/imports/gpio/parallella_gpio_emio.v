@@ -22,7 +22,7 @@
 */
 
 // Implements GPIO pins from the PS/EMIO
-// Works with 7010 (24 pins) or 7020 (48 pins) and
+// Works with 7010 (24 pins) or 7020 (48 pins) andd
 // either single-ended or differential IO
 
 // Required global defines:
@@ -33,11 +33,11 @@
 
 // Set # of GPIO pin-pairs based on target FPGA
 `ifdef TARGET_7Z020
-  `define GPIO_NUM 22 // was 24, but stealing 2x for UART0, and algorithm below breaks on odd number of GPIO pairs
-  `define SIG_MAX 46 // was 48, but stealing 2x for UART0
+  `define GPIO_NUM  22 // was 24 - using 2x for UART0, further 2x waste as algorithm below breaks on odd number of GPIO pairs.
+  `define SIG_MAX   44 // was 48 - using 2x for UART0, further 2x now unused.
 `elsif TARGET_7Z010
-  `define  GPIO_NUM 12
-  `define SIG_MAX 48
+  `define GPIO_NUM  12
+  `define SIG_MAX   48
 `endif  // else throw an error!
 
 // Number of GPIO signals
@@ -62,9 +62,9 @@ module parallella_gpio_emio
    inout [`GPIO_NUM-1:0] GPIO_P;
    inout [`GPIO_NUM-1:0] GPIO_N;
 
-   output [45:0]  processing_system7_0_GPIO_I_pin;
-   input  [45:0]  processing_system7_0_GPIO_O_pin;
-   input  [45:0]  processing_system7_0_GPIO_T_pin;
+   output [43:0]  processing_system7_0_GPIO_I_pin;
+   input  [43:0]  processing_system7_0_GPIO_O_pin;
+   input  [43:0]  processing_system7_0_GPIO_T_pin;
 
    wire [`GPIO_SIGS-1:0] gpio_i;
    assign processing_system7_0_GPIO_I_pin[`GPIO_SIGS-1:0] = gpio_i;

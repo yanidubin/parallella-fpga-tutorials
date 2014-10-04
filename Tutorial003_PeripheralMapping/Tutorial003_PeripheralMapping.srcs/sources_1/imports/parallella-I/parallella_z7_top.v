@@ -25,7 +25,7 @@
 
 // Set # of GPIO pins based on target FPGA
 `ifdef TARGET_7Z020
-  `define GPIO_NUM 22 // was 24, but stealing 2x for UART0
+  `define GPIO_NUM 22 // was 24 - see notes in parallella_gpio_emio.v.
 `elsif TARGET_7Z010
   `define  GPIO_NUM 12
 `endif  // else throw an error!
