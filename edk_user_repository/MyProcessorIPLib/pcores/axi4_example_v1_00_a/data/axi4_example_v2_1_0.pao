@@ -1,0 +1,10 @@
+##############################################################################
+## Filename:          /stash/files/dev/embedded/parallella/parallella-fpga-tutorials/edk_user_repository/MyProcessorIPLib/pcores/axi4_example_v1_00_a/data/axi4_example_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Tue Oct 14 20:46:42 2014 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib proc_common_v3_00_a  all 
+lib axi_slave_burst_v1_00_a  all 
+lib axi4_example_v1_00_a user_logic vhdl
+lib axi4_example_v1_00_a axi4_example vhdl
