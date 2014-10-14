@@ -3,6 +3,7 @@ XmpVersion: 14.7
 VerMgmt: 
 IntStyle: default
 Flow: ise
+ModuleSearchPath: /stash/files/dev/embedded/parallella/parallella-fpga-tutorials/edk_user_repository
 MHS File: system.mhs
 Architecture: zynq
 Device: xc7z020
@@ -24,6 +25,7 @@ UcfFile: data/system.ucf
 EnableParTimingError: 1
 ShowLicenseDialog: 1
 BInfo: 
+LockAddr: axi4_example_0,C_S_AXI_MEM0_BASEADDR
 Processor: processing_system7_0
 ElfImp: 
 ElfSim: 
