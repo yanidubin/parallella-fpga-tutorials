@@ -1,0 +1,10 @@
+##############################################################################
+## Filename:          /stash/files/dev/embedded/parallella/parallella-fpga-tutorials/edk_user_repository/MyProcessorIPLib/pcores/axi4lite_simple_alu_v1_00_a/data/axi4lite_simple_alu_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Sun Oct 19 00:50:40 2014 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib proc_common_v3_00_a  all 
+lib axi_lite_ipif_v1_01_a  all 
+lib axi4lite_simple_alu_v1_00_a user_logic vhdl
+lib axi4lite_simple_alu_v1_00_a axi4lite_simple_alu vhdl
