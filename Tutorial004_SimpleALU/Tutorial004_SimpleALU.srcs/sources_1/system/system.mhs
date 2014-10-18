@@ -26,6 +26,7 @@
  PORT processing_system7_0_M_AXI_GP1_ARESETN_pin = processing_system7_0_M_AXI_GP1_ARESETN, DIR = O, SIGIS = RST
  PORT processing_system7_0_S_AXI_HP1_ARESETN_pin = processing_system7_0_S_AXI_HP1_ARESETN, DIR = O, SIGIS = RST
  PORT processing_system7_0_FCLK_CLK3_pin = processing_system7_0_FCLK_CLK3, DIR = O, SIGIS = CLK, CLK_FREQ = 40000000
+ PORT processing_system7_0_FCLK_CLK0_pin = processing_system7_0_FCLK_CLK0, DIR = O, SIGIS = CLK, CLK_FREQ = 100000000
  PORT processing_system7_0_M_AXI_GP1_ARVALID_pin = processing_system7_0_M_AXI_GP1_ARVALID, DIR = O
  PORT processing_system7_0_M_AXI_GP1_AWVALID_pin = processing_system7_0_M_AXI_GP1_AWVALID, DIR = O
  PORT processing_system7_0_M_AXI_GP1_BREADY_pin = processing_system7_0_M_AXI_GP1_BREADY, DIR = O
