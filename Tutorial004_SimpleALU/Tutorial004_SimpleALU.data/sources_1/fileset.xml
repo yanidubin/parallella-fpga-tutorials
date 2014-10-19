@@ -207,6 +207,10 @@
         <Attr Name="UsedInImplementation" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>
       </FileInfo>
+      <CompFileExtendedInfo CompFileName="system.xmp" FileRelPathName="/stash/files/dev/embedded/parallella/parallella-fpga-tutorials/edk_user_repository/MyProcessorIPLib/pcores/axi4lite_simple_alu_v1_00_a/hdl/vhdl/user_logic.vhd">
+        <Attr Name="UsedInSynthesis" Val="0"/>
+        <Attr Name="UsedInSimulation" Val="0"/>
+      </CompFileExtendedInfo>
     </File>
     <File Path="$PPRDIR/../../parallella-hw/fpga/hdl/parallella-I/parallella.v">
       <FileInfo>
@@ -236,6 +240,12 @@
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../edk_user_repository/MyProcessorIPLib/pcores/axi4lite_simple_alu_v1_00_a/hdl/vhdl/user_logic.vhd">
+      <FileInfo>
+        <Attr Name="UsedInSynthesis" Val="0"/>
+        <Attr Name="UsedInSimulation" Val="0"/>
       </FileInfo>
     </File>
     <Config>
