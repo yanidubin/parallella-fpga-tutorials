@@ -127,6 +127,13 @@ entity user_logic is
   constant SEL_RESULT1             : std_logic_vector(7 downto 0):= "00010000";
   constant SEL_RESULT2             : std_logic_vector(7 downto 0):= "00001000";
 
+  constant OP_ADD                  : std_logic_vector(3 downto 0):= "0001";
+  constant OP_SUB                  : std_logic_vector(3 downto 0):= "0010";
+  constant OP_AND                  : std_logic_vector(3 downto 0):= "0011";
+  constant OP_MUL                  : std_logic_vector(3 downto 0):= "0100";
+
+  constant ERROR                   : std_logic_vector(C_SLV_DWIDTH-1 downto 0) := (others => '1');
+
 end entity user_logic;
 
 ------------------------------------------------------------------------------
@@ -151,6 +158,7 @@ architecture IMP of user_logic is
   signal slv_read_ack                   : std_logic;
   signal slv_write_ack                  : std_logic;
 
+  signal tmp_double                     : std_logic_vector(C_SLV_DWIDTH*2-1 downto 0);
 begin
 
   --USER logic implementation added here
@@ -211,7 +219,25 @@ begin
             end loop;
           -- when SEL_RESULT1 : result registers are read only.
           -- when SEL_RESULT2 : result registers are read only.
-          when others => null;
+          when others =>
+            case reg_opcode(3 downto 0) is
+              when OP_ADD =>
+                reg_result1 <= reg_operand1  +  reg_operand2;
+                reg_result2 <= (others => '0');
+              when OP_SUB =>
+                reg_result1 <= reg_operand1  -  reg_operand2;
+                reg_result2 <= (others => '0');
+              when OP_AND =>
+                reg_result1 <= reg_operand1 AND reg_operand2;
+                reg_result2 <= (others => '0');
+              when OP_MUL =>
+                tmp_double  <= reg_operand1  *  reg_operand2;
+                reg_result1 <= tmp_double(C_SLV_DWIDTH-1 downto 0);
+                reg_result2 <= tmp_double(C_SLV_DWIDTH*2-1 downto C_SLV_DWIDTH);
+              when others =>
+                reg_result1 <= ERROR;
+                reg_result2 <= ERROR;
+            end case;
         end case;
       end if;
     end if;
