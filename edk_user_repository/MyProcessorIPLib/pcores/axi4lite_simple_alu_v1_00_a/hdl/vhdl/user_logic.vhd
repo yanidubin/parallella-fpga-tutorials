@@ -121,6 +121,12 @@ entity user_logic is
   attribute SIGIS of Bus2IP_Clk    : signal is "CLK";
   attribute SIGIS of Bus2IP_Resetn : signal is "RST";
 
+  constant SEL_OPCODE              : std_logic_vector(7 downto 0):= "10000000";
+  constant SEL_OPERAND1            : std_logic_vector(7 downto 0):= "01000000";
+  constant SEL_OPERAND2            : std_logic_vector(7 downto 0):= "00100000";
+  constant SEL_RESULT1             : std_logic_vector(7 downto 0):= "00010000";
+  constant SEL_RESULT2             : std_logic_vector(7 downto 0):= "00001000";
+
 end entity user_logic;
 
 ------------------------------------------------------------------------------
@@ -134,14 +140,11 @@ architecture IMP of user_logic is
   ------------------------------------------
   -- Signals for user logic slave model s/w accessible register example
   ------------------------------------------
-  signal slv_reg0                       : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
-  signal slv_reg1                       : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
-  signal slv_reg2                       : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
-  signal slv_reg3                       : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
-  signal slv_reg4                       : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
-  signal slv_reg5                       : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
-  signal slv_reg6                       : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
-  signal slv_reg7                       : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
+  signal reg_opcode                     : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
+  signal reg_operand1                   : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
+  signal reg_operand2                   : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
+  signal reg_result1                    : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
+  signal reg_result2                    : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
   signal slv_reg_write_sel              : std_logic_vector(7 downto 0);
   signal slv_reg_read_sel               : std_logic_vector(7 downto 0);
   signal slv_ip2bus_data                : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
@@ -181,64 +184,33 @@ begin
 
     if Bus2IP_Clk'event and Bus2IP_Clk = '1' then
       if Bus2IP_Resetn = '0' then
-        slv_reg0 <= (others => '0');
-        slv_reg1 <= (others => '0');
-        slv_reg2 <= (others => '0');
-        slv_reg3 <= (others => '0');
-        slv_reg4 <= (others => '0');
-        slv_reg5 <= (others => '0');
-        slv_reg6 <= (others => '0');
-        slv_reg7 <= (others => '0');
+        reg_opcode   <= (others => '0');
+        reg_operand1 <= (others => '0');
+        reg_operand2 <= (others => '0');
+        reg_result1  <= (others => '0');
+        reg_result2  <= (others => '0');
       else
         case slv_reg_write_sel is
-          when "10000000" =>
+          when SEL_OPCODE =>
             for byte_index in 0 to (C_SLV_DWIDTH/8)-1 loop
               if ( Bus2IP_BE(byte_index) = '1' ) then
-                slv_reg0(byte_index*8+7 downto byte_index*8) <= Bus2IP_Data(byte_index*8+7 downto byte_index*8);
+                reg_opcode(byte_index*8+7 downto byte_index*8) <= Bus2IP_Data(byte_index*8+7 downto byte_index*8);
               end if;
             end loop;
-          when "01000000" =>
+          when SEL_OPERAND1 =>
             for byte_index in 0 to (C_SLV_DWIDTH/8)-1 loop
               if ( Bus2IP_BE(byte_index) = '1' ) then
-                slv_reg1(byte_index*8+7 downto byte_index*8) <= Bus2IP_Data(byte_index*8+7 downto byte_index*8);
+                reg_operand1(byte_index*8+7 downto byte_index*8) <= Bus2IP_Data(byte_index*8+7 downto byte_index*8);
               end if;
             end loop;
-          when "00100000" =>
+          when SEL_OPERAND2 =>
             for byte_index in 0 to (C_SLV_DWIDTH/8)-1 loop
               if ( Bus2IP_BE(byte_index) = '1' ) then
-                slv_reg2(byte_index*8+7 downto byte_index*8) <= Bus2IP_Data(byte_index*8+7 downto byte_index*8);
+                reg_operand2(byte_index*8+7 downto byte_index*8) <= Bus2IP_Data(byte_index*8+7 downto byte_index*8);
               end if;
             end loop;
-          when "00010000" =>
-            for byte_index in 0 to (C_SLV_DWIDTH/8)-1 loop
-              if ( Bus2IP_BE(byte_index) = '1' ) then
-                slv_reg3(byte_index*8+7 downto byte_index*8) <= Bus2IP_Data(byte_index*8+7 downto byte_index*8);
-              end if;
-            end loop;
-          when "00001000" =>
-            for byte_index in 0 to (C_SLV_DWIDTH/8)-1 loop
-              if ( Bus2IP_BE(byte_index) = '1' ) then
-                slv_reg4(byte_index*8+7 downto byte_index*8) <= Bus2IP_Data(byte_index*8+7 downto byte_index*8);
-              end if;
-            end loop;
-          when "00000100" =>
-            for byte_index in 0 to (C_SLV_DWIDTH/8)-1 loop
-              if ( Bus2IP_BE(byte_index) = '1' ) then
-                slv_reg5(byte_index*8+7 downto byte_index*8) <= Bus2IP_Data(byte_index*8+7 downto byte_index*8);
-              end if;
-            end loop;
-          when "00000010" =>
-            for byte_index in 0 to (C_SLV_DWIDTH/8)-1 loop
-              if ( Bus2IP_BE(byte_index) = '1' ) then
-                slv_reg6(byte_index*8+7 downto byte_index*8) <= Bus2IP_Data(byte_index*8+7 downto byte_index*8);
-              end if;
-            end loop;
-          when "00000001" =>
-            for byte_index in 0 to (C_SLV_DWIDTH/8)-1 loop
-              if ( Bus2IP_BE(byte_index) = '1' ) then
-                slv_reg7(byte_index*8+7 downto byte_index*8) <= Bus2IP_Data(byte_index*8+7 downto byte_index*8);
-              end if;
-            end loop;
+          -- when SEL_RESULT1 : result registers are read only.
+          -- when SEL_RESULT2 : result registers are read only.
           when others => null;
         end case;
       end if;
@@ -247,18 +219,15 @@ begin
   end process SLAVE_REG_WRITE_PROC;
 
   -- implement slave model software accessible register(s) read mux
-  SLAVE_REG_READ_PROC : process( slv_reg_read_sel, slv_reg0, slv_reg1, slv_reg2, slv_reg3, slv_reg4, slv_reg5, slv_reg6, slv_reg7 ) is
+  SLAVE_REG_READ_PROC : process( slv_reg_read_sel, reg_opcode, reg_operand1, reg_operand2, reg_result1, reg_result2 ) is
   begin
 
     case slv_reg_read_sel is
-      when "10000000" => slv_ip2bus_data <= slv_reg0;
-      when "01000000" => slv_ip2bus_data <= slv_reg1;
-      when "00100000" => slv_ip2bus_data <= slv_reg2;
-      when "00010000" => slv_ip2bus_data <= slv_reg3;
-      when "00001000" => slv_ip2bus_data <= slv_reg4;
-      when "00000100" => slv_ip2bus_data <= slv_reg5;
-      when "00000010" => slv_ip2bus_data <= slv_reg6;
-      when "00000001" => slv_ip2bus_data <= slv_reg7;
+      when SEL_OPCODE   => slv_ip2bus_data <= reg_opcode;
+      when SEL_OPERAND1 => slv_ip2bus_data <= reg_operand1;
+      when SEL_OPERAND2 => slv_ip2bus_data <= reg_operand2;
+      when SEL_RESULT1  => slv_ip2bus_data <= reg_result1;
+      when SEL_RESULT2  => slv_ip2bus_data <= reg_result2;
       when others => slv_ip2bus_data <= (others => '0');
     end case;
 
